@@ -2,6 +2,7 @@ package com.growin.marvel;
 
 import com.growin.marvel.bean.AuthorizationInterceptor;
 import feign.RequestInterceptor;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +20,7 @@ import java.time.Duration;
 @Configuration
 @ComponentScan
 @EnableFeignClients
+@EnableCaching
 public class MarvelConfiguration {
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
