@@ -1,5 +1,6 @@
 package com.growin.marvel.dto;
 
+import com.growin.marvel.model.Thumbnail;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,12 +15,6 @@ public class CharacterResults {
     private String attributionHTML;
     private String etag;
     private CharacterData data;
-
-    @Data
-    public static class Thumbnail {
-        private String path;
-        private String extension;
-    }
 
     @Data
     public static class Result {

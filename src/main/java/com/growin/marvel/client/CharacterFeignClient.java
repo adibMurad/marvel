@@ -10,14 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface CharacterFeignClient {
     @GetMapping
     CharacterResults getAllCharacters(@RequestParam int offset,
-                                      @RequestParam int limit,
-                                      @RequestParam long ts,
-                                      @RequestParam String apikey,
-                                      @RequestParam String hash);
+                                      @RequestParam int limit);
 
     @GetMapping("/{characterId}")
-    CharacterResults getCharacter(@PathVariable String characterId,
-                                  @RequestParam long ts,
-                                  @RequestParam String apikey,
-                                  @RequestParam String hash);
+    CharacterResults getCharacter(@PathVariable int characterId);
 }

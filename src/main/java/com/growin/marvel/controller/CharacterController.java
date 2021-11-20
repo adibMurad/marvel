@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @RestController
@@ -36,7 +35,7 @@ public class CharacterController {
             @ApiResponse(code = 500, message = "")}
     )
     @GetMapping
-    public ResponseEntity<List<BigInteger>> getAllCharacterIds() {
+    public ResponseEntity<List<Integer>> getAllCharacterIds() {
         return ResponseEntity.ok(service.getAllCharacterIds());
     }
 
@@ -53,7 +52,7 @@ public class CharacterController {
             @ApiResponse(code = 500, message = "")}
     )
     @GetMapping("/{characterId}")
-    public ResponseEntity<MarvelCharacter> getCharacter(@PathVariable BigInteger characterId) {
+    public ResponseEntity<MarvelCharacter> getCharacter(@PathVariable int characterId) {
         return ResponseEntity.ok(service.getCharacter(characterId));
     }
 

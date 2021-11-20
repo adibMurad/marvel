@@ -1,5 +1,7 @@
 package com.growin.marvel;
 
+import com.growin.marvel.bean.AuthorizationInterceptor;
+import feign.RequestInterceptor;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,15 +20,6 @@ import java.time.Duration;
 @ComponentScan
 @EnableFeignClients
 public class MarvelConfiguration {
-
-//    public static void main(String[] args) {
-//        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MarvelConfiguration.class);
-//
-//        for (String beanName : applicationContext.getBeanDefinitionNames()) {
-//            System.out.println(beanName);
-//        }
-//    }
-
     @Bean
     public RedisCacheConfiguration cacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
@@ -42,6 +35,11 @@ public class MarvelConfiguration {
                 .apis(RequestHandlerSelectors.basePackage("com.growin.marvel.controller"))
                 .paths(PathSelectors.any())
                 .build();
+    }
+
+    @Bean
+    public RequestInterceptor requestInterceptor() {
+        return new AuthorizationInterceptor();
     }
 
 }
