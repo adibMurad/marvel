@@ -1,4 +1,4 @@
-package com.growin.marvel;
+package com.growin.marvel.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
