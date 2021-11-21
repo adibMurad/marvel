@@ -30,4 +30,4 @@ Change directory to the application folder and run it:
 
 Use `curl` to check if the application is running:
 
-- curl http://127.0.0.1:8080/marvel/characters/1017100?language=pt 
+- curl http://localhost:8080/marvel/characters/1017100?language=pt 
