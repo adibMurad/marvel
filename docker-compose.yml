@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: marvel-app
+    build:
+      context: .
+    image: openjdk:16-alpine3.13
+    command: sh -c "./mvnw spring-boot:run"
+    ports:
+      - 8080:8080
+    working_dir: /app
+    volumes:
+      - marvelfs:/root
+    links:
+      - redis
+    environment:
+      - MARVEL_PRIVATE_KEY
+      - MARVEL_PUBLIC_KEY
+      - TRANSLATION_API_KEY
+
+  redis:
+    container_name: redis
+    image: redis
+    hostname: localhost
+    ports:
+      - "6379:6379"
+
+volumes:
+  marvelfs:
