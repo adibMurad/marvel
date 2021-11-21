@@ -2,16 +2,14 @@ package com.growin.marvel.controller;
 
 import com.growin.marvel.model.MarvelCharacter;
 import com.growin.marvel.service.CharacterService;
+import com.growin.marvel.service.TranslationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +18,9 @@ import java.util.List;
 @Tag(name = "character-controller", description = "API to query Marvel characters data.")
 public class CharacterController {
     @Autowired
-    private CharacterService service;
+    private CharacterService characterService;
+    @Autowired
+    private TranslationService translationService;
 
     @ApiOperation(
             value = "Retrieve all the Marvel character ids.",
@@ -28,15 +28,12 @@ public class CharacterController {
             tags = {"character-controller"}
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 400, message = ""),
-            @ApiResponse(code = 401, message = ""),
-            @ApiResponse(code = 422, message = ""),
-            @ApiResponse(code = 500, message = "")}
+            @ApiResponse(code = 200, message = "Success."),
+            @ApiResponse(code = 500, message = "An unexpected error has occurred. The error has been logged and is being investigated.")}
     )
     @GetMapping
     public ResponseEntity<List<Integer>> getAllCharacterIds() {
-        return ResponseEntity.ok(service.getAllCharacterIds());
+        return ResponseEntity.ok(characterService.getAllCharacterIds());
     }
 
     @ApiOperation(
@@ -45,15 +42,15 @@ public class CharacterController {
             tags = {"character-controller"}
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 400, message = ""),
-            @ApiResponse(code = 401, message = ""),
-            @ApiResponse(code = 422, message = ""),
-            @ApiResponse(code = 500, message = "")}
+            @ApiResponse(code = 200, message = "Success."),
+            @ApiResponse(code = 500, message = "An unexpected error has occurred. The error has been logged and is being investigated.")}
     )
     @GetMapping("/{characterId}")
-    public ResponseEntity<MarvelCharacter> getCharacter(@PathVariable int characterId) {
-        return ResponseEntity.ok(service.getCharacter(characterId));
+    public ResponseEntity<MarvelCharacter> getCharacter(@PathVariable int characterId,
+                                                        @RequestParam(required = false) String language) {
+        MarvelCharacter character = characterService.getCharacter(characterId);
+        translationService.translateDescription(character, language);
+        return ResponseEntity.ok(character);
     }
 
 }

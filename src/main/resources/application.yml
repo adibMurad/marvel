@@ -1,8 +1,8 @@
 server.servlet.context-path: /marvel
 
-#spring:
-#  cache.type: redis
-#  redis:
-#    host: 127.0.0.1
-#    port: 6379
+character.request.limit: 100
+
+feign.client.config:
+  characters.errorDecoder: com.growin.marvel.exception.CharacterErrorDecoder
+  translation.errorDecoder: com.growin.marvel.exception.TranslationErrorDecoder
 
